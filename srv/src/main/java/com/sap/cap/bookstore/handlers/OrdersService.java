@@ -26,6 +26,9 @@ import cds.gen.ordersservice.Orders_;
 import cds.gen.sap.capire.bookstore.Books;
 import cds.gen.sap.capire.bookstore.Books_;
 
+import java.math.BigDecimal;
+import com.sap.cds.services.handler.annotations.After;
+
 
 @Component
 @ServiceName(OrdersService_.CDS_NAME)
@@ -66,5 +69,20 @@ public class OrdersService implements EventHandler {
             }
         }
     }
+
+    @After(event = { CqnService.EVENT_READ, CqnService.EVENT_CREATE }, entity = OrderItems_.CDS_NAME)
+    public void calculateNetAmount(List<OrderItems> items) {
+    for (OrderItems item : items) {
+        String bookId = item.getBookId();
+
+        // get the book that was ordered
+        CqnSelect sel = Select.from(Books_.class).where(b -> b.ID().eq(bookId));
+        Books book = db.run(sel).single(Books.class);
+
+        // calculate and set net amount
+        item.setNetAmount(book.getPrice().multiply(new BigDecimal(item.getAmount())));
+    }
+}
+
 
 }
