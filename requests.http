@@ -1,0 +1,9 @@
+### GET
+
+GET http://localhost:8080/odata/v4/BooksService/Books
+
+### GET DE
+GET http://localhost:8080/odata/v4/BooksService/Books?sap-locale=de
+
+### GET EN
+GET http://localhost:8080/odata/v4/BooksService/Books?sap-locale=en
