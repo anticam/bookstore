@@ -37,10 +37,13 @@ Content-Type: application/json
   "items": [
     {
       "book_ID": "fd0c5fda-8811-4e20-bcff-3a776abc290a",
-      "amount": 4
+      "amount": 10
     }
   ]
 }
 
 ### GET
 http://localhost:8080/odata/v4/OrdersService/OrderItems
+
+### GET 
+GET http://localhost:8080/odata/v4/OrdersService/Orders
